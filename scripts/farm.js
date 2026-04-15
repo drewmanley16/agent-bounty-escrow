@@ -83,8 +83,13 @@ async function sendTx(contract, method, args, value) {
         REWARD);
       totalGas += postReceipt.gasUsed;
 
-      // Read bounty ID directly from chain (most reliable)
-      const id = Number((await contract.bountyCount()) - 1n);
+      // Read bounty ID from the receipt log (no extra RPC, no race condition)
+      const postedTopic = contract.interface.getEvent("BountyPosted").topicHash;
+      const postLog = postReceipt.logs.find(l =>
+        l.address.toLowerCase() === CONTRACT_ADDRESS.toLowerCase() &&
+        l.topics[0] === postedTopic
+      );
+      const id = postLog ? Number(BigInt(postLog.topics[1])) : Number((await contract.bountyCount()) - 1n);
 
       // Claim
       await sleep(DELAY_MS);
