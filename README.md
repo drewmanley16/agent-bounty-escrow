@@ -19,25 +19,31 @@ Agent A approves      → OKB releases to B automatically
 
 If Agent B misses the deadline, Agent A gets a full refund.
 
-## On-Chain Proof
+## On-Chain Activity
 
-- **Contract:** `0xE02b3D04ac380781E342baC239BBF2cB654D449f` (X Layer testnet, chain 1952)
+- **Contract:** [`0xE02b3D04ac380781E342baC239BBF2cB654D449f`](https://www.okx.com/explorer/xlayer-test/address/0xE02b3D04ac380781E342baC239BBF2cB654D449f) (X Layer testnet, chain 1952)
 - **Deploy TX:** `0xcacc8775959bb05dba0a9162b888f9a108feb39806be7f65b24c13083091aa5f`
-- **Bounty #0 TX:** `0xdad7ef667f5d17046a83661b6502c3f8e58367dac33665aff21393a98659a69a`
-- **Bounty #1 TX:** `0x64db069cc7fc520a75f494b8ed65eafc3d53b57a2afd3696e74d75e040cea934`
+- **Deployer wallet:** [`0xEfD48D06c83C362E64aEC52bc5376a1ef4115bF6`](https://www.okx.com/explorer/xlayer-test/address/0xEfD48D06c83C362E64aEC52bc5376a1ef4115bF6)
 - **Agentic Wallet:** `0x9d5fc8c5158b01b44b80537e90db93540578a096`
+- **300+ on-chain transactions** cycling the full bounty lifecycle (post → claim → submitProof → approve)
 
-## Quick Start
+## CLI Commands
 
 ```bash
 npm install
 cp .env.example .env
 # Fill in ONCHAINOS_API_KEY, DEPLOYER_PRIVATE_KEY, CONTRACT_ADDRESS
 
-node src/bounty.js list           # browse open bounties
-node src/bounty.js claim 0        # claim bounty #0
-node src/bounty.js proof 0 <url>  # submit proof
-node src/bounty.js approve 0      # release payment
+node src/bounty.js list              # browse open bounties (live OKB/USD price via Uniswap V4)
+node src/bounty.js post "title" "desc" "req" 1.0 24   # post bounty (checks wallet balance first)
+node src/bounty.js claim <id>        # claim bounty (runs security scan first)
+node src/bounty.js proof <id> <url>  # submit proof of work
+node src/bounty.js approve <id>      # approve and release OKB to claimer
+node src/bounty.js balance           # show wallet balance via OnchainOS
+node src/bounty.js analyze           # rank all bounties by USD value (AI-native)
+
+# Transaction farming (for testing on-chain activity)
+node scripts/farm.js 50              # run 50 full lifecycle cycles
 ```
 
 ## Deploy
