@@ -19,7 +19,7 @@ function sign(ts: string, method: string, path: string, body: string) {
 export async function GET() {
   try {
     const ts = new Date().toISOString();
-    const path = `/api/v6/dex/aggregator/quote?chainId=196&fromTokenAddress=${OKB}&toTokenAddress=${USDC}&amount=1000000000000000000`;
+    const path = `/api/v6/dex/aggregator/quote?chainIndex=196&fromTokenAddress=${OKB}&toTokenAddress=${USDC}&amount=1000000000000000000`;
     const sig = sign(ts, "GET", path, "");
 
     const res = await fetch(`${BASE}${path}`, {
