@@ -74,6 +74,12 @@ Every command calls a real OnchainOS V6 API — no mocks, no stubs:
 - **Deployer:** [`0xEfD48D06c83C362E64aEC52bc5376a1ef4115bF6`](https://www.okx.com/explorer/xlayer-test/address/0xEfD48D06c83C362E64aEC52bc5376a1ef4115bF6)
 - **Agentic Wallet:** `0x9d5fc8c5158b01b44b80537e90db93540578a096`
 
+## Live Demo
+
+**[https://frontend-khaki-theta-67.vercel.app](https://frontend-khaki-theta-67.vercel.app)**
+
+Live bounty marketplace with real on-chain data and OnchainOS price feed.
+
 ## Quick Start
 
 ```bash
